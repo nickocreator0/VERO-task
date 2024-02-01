@@ -1,20 +1,4 @@
-Hello dear python dev!
-
-This repository is supposed to act as a playground for your submission.
-
-Before getting started, please make sure use this repository as a **template** and create your own **public** repository, on which you will commit and push your code regularly. 
-Once you are ready, please mail us back the link to your repository. 
-
-Below, you will find the **Task** definition.
-
-Happy Hacking :computer:
-
-# Task
-
-Write two python scripts that have to achieve the common goal to downloads a certain set of resources, merges them with CSV-transmitted resources, and converts them to a formatted excel file.
-In particular, the script should:
-
-## Client
+# Client
 
 Transmits a CSV to a REST-API (s. Server-section below), handles the response and generates an Excel-File taking the input parameters into account.
 
@@ -33,7 +17,7 @@ Transmits a CSV to a REST-API (s. Server-section below), handles the response an
      - If `hu` is older than 12 months --> red (`#b30000`)
    - The file should be named `vehicles_{current_date_iso_formatted}.xlsx`
 
-## Server
+# Server
 
 This script should offer a REST-API, that accepts a CSV, downloads a certain set of resources, merges them with the CSV, applies filtering, and returns them in an appropriate data-structure
 
@@ -45,7 +29,7 @@ This script should offer a REST-API, that accepts a CSV, downloads a certain set
    - For each `labelId` in the vehicle's JSON array `labelIds` resolve its `colorCode` using `https://api.baubuddy.de/dev/index.php/v1/labels/{labelId}`
    - return data-structure in JSON format
 
-### Authorization
+## Authorization
 
 It's mandatory for your requests towards the https://api.baubuddy.de to be authorized. You can find the required request below:
 
@@ -63,20 +47,3 @@ curl --request POST \
 ```
 
 The response will contain a json object, having the access token in `json["oauth"]["access_token"]`. For all subsequent calls this has to be added to the request headers as `Authorization: Bearer {access_token}`.
-
-A possible implementation in `Python` could be the following. You don't have to copy over this one, feel free to indivualize it or use a different network library.
-
-```python
-import requests
-url = "https://api.baubuddy.de/index.php/login"
-payload = {
-    "username": "365",
-    "password": "1"
-}
-headers = {
-    "Authorization": "Basic QVBJX0V4cGxvcmVyOjEyMzQ1NmlzQUxhbWVQYXNz",
-    "Content-Type": "application/json"
-}
-response = requests.request("POST", url, json=payload, headers=headers)
-print(response.text)
-```
